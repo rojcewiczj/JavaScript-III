@@ -70,7 +70,12 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}`
 }
- 
+Humanoid.prototype.death = function () {
+ {
+    return `${this.name} has died`
+  }
+}
+
 
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
@@ -149,8 +154,7 @@ Humanoid.prototype.greet = function () {
 
   Villain.prototype = Object.create(Humanoid.prototype);
   Villain.prototype.soulStealing = function () { 
-    return `${this.name} wounded the hero ${DemonSlayer.name},${DemonSlayer.healthPoints - 10}`
-
+    return `${this.name} wounded the hero ${DemonSlayer.name} ` 
   }
 
   function Hero (attr) {
@@ -158,7 +162,7 @@ Humanoid.prototype.greet = function () {
   }
   Hero.prototype = Object.create(Humanoid.prototype);
   Hero.prototype.ShieldOfLight = function () {
-    return `${this.name} wounded the villain`
+    return `${this.name} wounded the villain ${vampire.name} ` 
   }
 
   const vampire = new Villain({
@@ -195,9 +199,12 @@ Humanoid.prototype.greet = function () {
     language: 'Latin',
   });
 
-  console.log(DemonSlayer.ShieldOfLight())
-  console.log(vampire.takeDamage())
-  console.log(vampire.soulStealing())
-  console.log(DemonSlayer.takeDamage())
+
+
   
+  
+  let battle = function () {
+    return `${DemonSlayer.ShieldOfLight()} but then! ${vampire.soulStealing()} , ${DemonSlayer.name} swung at the last moment! ${DemonSlayer.ShieldOfLight()}...and ${vampire.death()} `
+  }
+ console.log(battle());
   
