@@ -64,7 +64,9 @@ function Humanoid (attr) {
   GameObject.call(this, attr);
 }
 
-Humanoid.prototype
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}`
+}
   Humanoid.prototype = Object.create(GameObject.prototype);
   Humanoid.prototype = Object.create(CharacterStats.prototype);
 
