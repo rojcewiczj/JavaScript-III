@@ -143,4 +143,61 @@ Humanoid.prototype.greet = function () {
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
+  function Villain (attr) {
+   Humanoid.call(this, attr);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.soulStealing = function () { 
+    return `${this.name} wounded the hero ${DemonSlayer.name},${DemonSlayer.healthPoints - 10}`
+
+  }
+
+  function Hero (attr) {
+    Humanoid.call(this, attr);
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.ShieldOfLight = function () {
+    return `${this.name} wounded the villain`
+  }
+
+  const vampire = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 15,
+    name: 'Vlad',
+    team: 'Dark Castle',
+    weapons: [
+      'inhuman strength',
+      'illusions',
+    ],
+    language: 'Demonic',
+  });
+  
+  const DemonSlayer = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 15,
+    name: 'Constantine',
+    team: 'Imperial Demon Slayer',
+    weapons: [
+      'Sword of Dawn',
+      'Shield of Ligth',
+    ],
+    language: 'Latin',
+  });
+
+  console.log(DemonSlayer.ShieldOfLight())
+  console.log(vampire.takeDamage())
+  console.log(vampire.soulStealing())
+  console.log(DemonSlayer.takeDamage())
+  
   
