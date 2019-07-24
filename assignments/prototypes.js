@@ -37,7 +37,7 @@ function CharacterStats (attr) {
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage.`
+  return `${this.name} took 10 damage.`
 }
 
 
@@ -72,7 +72,7 @@ Humanoid.prototype.greet = function () {
 }
 Humanoid.prototype.death = function () {
  {
-    return `${this.name} has died`
+    return ` having ${this.healthPoints - 15} health points left , ${this.name} has died`
   }
 }
 
@@ -154,7 +154,7 @@ Humanoid.prototype.death = function () {
 
   Villain.prototype = Object.create(Humanoid.prototype);
   Villain.prototype.soulStealing = function () { 
-    return `${this.name} wounded the hero ${DemonSlayer.name} ` 
+    return `${this.name} wounded the hero ${DemonSlayer.name}` 
   }
 
   function Hero (attr) {
@@ -162,7 +162,7 @@ Humanoid.prototype.death = function () {
   }
   Hero.prototype = Object.create(Humanoid.prototype);
   Hero.prototype.ShieldOfLight = function () {
-    return `${this.name} wounded the villain ${vampire.name} ` 
+    return `${this.name} wounded the villain ${vampire.name}` 
   }
 
   const vampire = new Villain({
@@ -204,7 +204,7 @@ Humanoid.prototype.death = function () {
   
   
   let battle = function () {
-    return `${DemonSlayer.ShieldOfLight()} but then! ${vampire.soulStealing()} , ${DemonSlayer.name} swung at the last moment! ${DemonSlayer.ShieldOfLight()}...and ${vampire.death()} `
+    return `${DemonSlayer.ShieldOfLight()}. ${vampire.takeDamage()} but then! ${vampire.soulStealing()}. ${DemonSlayer.takeDamage()} ${DemonSlayer.name} swung at the last moment! ${DemonSlayer.ShieldOfLight()}. ${vampire.takeDamage()}...and, ${vampire.death()} `
   }
  console.log(battle());
   
