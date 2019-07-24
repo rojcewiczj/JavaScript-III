@@ -32,10 +32,13 @@ GameObject.prototype.destroy = function() {
 */
 function CharacterStats (attr) {
   this.healthPoints = attr.healthPoints;
+  GameObject.call(this, attr);
 }
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`
 }
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -52,6 +55,19 @@ CharacterStats.prototype.takeDamage = function() {
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+
+function Humanoid (attr) {
+  this.team = attr.team;
+  this.weapons = attr.weapons;
+  this.language = attr.language;
+  CharacterStats.call(this, attr);
+  GameObject.call(this, attr);
+}
+
+Humanoid.prototype
+  Humanoid.prototype = Object.create(GameObject.prototype);
+  Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
