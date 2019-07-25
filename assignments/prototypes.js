@@ -15,6 +15,14 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
+function GameObject(attr) {
+  this.createdAt = attr.createdAt;
+  this.name = attr.name;
+  this.dimensions = attr.dimensions;
+}
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +30,17 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats (attr) {
+  this.healthPoints = attr.healthPoints;
+  GameObject.call(this, attr);
+  
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took 10 damage.`
+}
+
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -39,9 +58,29 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+function Humanoid (attr) {
+  this.team = attr.team;
+  this.weapons = attr.weapons;
+  this.language = attr.language;
+  CharacterStats.call(this, attr);
+  GameObject.call(this, attr);
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}`
+}
+Humanoid.prototype.death = function () {
+ {
+    return ` having ${this.healthPoints - 15} health points left , ${this.name} has died`
+  }
+}
+
+
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +141,70 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Villain (attr) {
+   Humanoid.call(this, attr);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.soulStealing = function () { 
+    return `${this.name} wounded the hero ${DemonSlayer.name}` 
+  }
+
+  function Hero (attr) {
+    Humanoid.call(this, attr);
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.ShieldOfLight = function () {
+    return `${this.name} wounded the villain ${vampire.name}` 
+  }
+
+  const vampire = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 15,
+    name: 'Vlad',
+    team: 'Dark Castle',
+    weapons: [
+      'inhuman strength',
+      'illusions',
+    ],
+    language: 'Demonic',
+  });
+  
+  const DemonSlayer = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 15,
+    name: 'Constantine',
+    team: 'Imperial Demon Slayer',
+    weapons: [
+      'Sword of Dawn',
+      'Shield of Ligth',
+    ],
+    language: 'Latin',
+  });
+
+
+
+  
+  
+  let battle = function () {
+    return `${DemonSlayer.ShieldOfLight()}. ${vampire.takeDamage()} but then! ${vampire.soulStealing()}. ${DemonSlayer.takeDamage()} ${DemonSlayer.name} swung at the last moment! ${DemonSlayer.ShieldOfLight()}. ${vampire.takeDamage()}...and, ${vampire.death()} `
+  }
+ console.log(battle());
+  
